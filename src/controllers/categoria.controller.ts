@@ -2,6 +2,39 @@ import { Request, Response } from "express";
 import { CategoriaService } from "../services/categoria.service";
 import { categoriaSchema } from "../dtos/categoria.dto";
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    categoriaDTO:
+ *     type: object 
+ *     properties:
+ *       id:
+ *         type: integer
+ *       nome:
+ *         type: string
+ *       
+ */
+
+/**
+ * @openapi
+ * /cateroria:
+ *  post:
+ *    summary: cadastro de categoria
+ *    requestBody:
+ *     content:
+ *       application/json:
+ *         schema:
+ *           $ref: '#components/schemas/categoriaDTO'
+ *    responses:
+ *     201:
+ *      description: ok
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#components/schemas/categoriaDTO'  
+ */
+
 const service = new CategoriaService();
 export class CategoriaController{
     static async create(req:Request,res:Response){

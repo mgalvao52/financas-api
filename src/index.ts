@@ -30,6 +30,7 @@ app.post("/usuarios", UsuarioController.create );
 app.post("/auth/login",UsuarioController.login);
 
 // categoria
+
 app.post("/categoria",authMiddleware,CategoriaController.create);
 app.get("/categoria",authMiddleware,CategoriaController.list);
 app.get("/categoria/:nome",authMiddleware,CategoriaController.getByName);
