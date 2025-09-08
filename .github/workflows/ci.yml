@@ -24,5 +24,10 @@ jobs:
        - name: Buldar Projeto
          run: npm run build
 
+       - name: Rodar migrações no Postgres do Render
+         run: npx prisma migrate deploy
+         env:
+            DATABASE_URL: ${{secrets.DATABASE_URL}}  
+
          
      
