@@ -28,11 +28,21 @@ import { categoriaSchema } from "../dtos/categoria.dto";
  *           $ref: '#components/schemas/categoriaDTO'
  *    responses:
  *     201:
- *      description: ok
+ *      description: 
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#components/schemas/categoriaDTO'  
+ *            $ref: '#components/schemas/categoriaDTO'
+ *     400:
+ *      description: 
+ *      content:
+ *       application/json:
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *              type: string
+ *     
  */
 
 const service = new CategoriaService();
