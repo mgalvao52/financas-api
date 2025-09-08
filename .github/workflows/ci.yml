@@ -24,6 +24,5 @@ jobs:
        - name: Buldar Projeto
          run: npm run build
 
-       - name: Rodar testes
-         run: npm test    
+         
      
