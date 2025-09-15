@@ -11,7 +11,7 @@ import { CategoriaController } from "./controllers/categoria.controller";
 import { ContaController } from "./controllers/conta.controller";
 import { ReportController } from "./controllers/report.controller";
 import { setupSwagger } from "./swagger";
-
+import { setupRoutes } from "./routes";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -20,38 +20,54 @@ app.use(express.json());
 setupSwagger(app);
 
 // rota de teste
-app.get("/",(req,res)=>{
-    res.send("API de finanças funcionando");
+app.get("/", (req, res) => {
+  res.send("API de finanças funcionando");
 });
 
 // criar usuario
-app.post("/usuarios", UsuarioController.create );
+app.post("/usuarios", UsuarioController.create);
 //login
-app.post("/auth/login",UsuarioController.login);
+app.post("/auth/login", UsuarioController.login);
 
 // categoria
-
-app.post("/categoria",authMiddleware,CategoriaController.create);
-app.get("/categoria",authMiddleware,CategoriaController.list);
-app.get("/categoria/:nome",authMiddleware,CategoriaController.getByName);
+setupRoutes(app);
+// app.post("/categoria", authMiddleware, CategoriaController.create);
+// app.get("/categoria", authMiddleware, CategoriaController.list);
+// app.get("/categoria/:nome", authMiddleware, CategoriaController.getByName);
 
 //conta
-app.post("/conta",authMiddleware,ContaController.create);
-app.get("/conta",authMiddleware,ContaController.getByUserId);
+app.post("/conta", authMiddleware, ContaController.create);
+app.get("/conta", authMiddleware, ContaController.getByUserId);
 
 // criar transação
-app.post("/transacoes",authMiddleware,TransacaoController.create);
+app.post("/transacoes", authMiddleware, TransacaoController.create);
 // listar transações
-app.get("/transacoes",authMiddleware,TransacaoController.List);
+app.get("/transacoes", authMiddleware, TransacaoController.List);
 
 // relatorios
-app.get("/relatorios/saldo-contas",authMiddleware,ReportController.amountByConta);
-app.get("/relatorios/gastos-categoria",authMiddleware,ReportController.expensesByCategory);
-app.get("/relatorios/saldo-total",authMiddleware,ReportController.totalAmount);
-app.get("/relatorios/resumo-mensal",authMiddleware,ReportController.resumoMensal);
+app.get(
+  "/relatorios/saldo-contas",
+  authMiddleware,
+  ReportController.amountByConta
+);
+app.get(
+  "/relatorios/gastos-categoria",
+  authMiddleware,
+  ReportController.expensesByCategory
+);
+app.get(
+  "/relatorios/saldo-total",
+  authMiddleware,
+  ReportController.totalAmount
+);
+app.get(
+  "/relatorios/resumo-mensal",
+  authMiddleware,
+  ReportController.resumoMensal
+);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,()=>{
-    console.log("Servidor rodando em http://localhost:3000");
-})
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});

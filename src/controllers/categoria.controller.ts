@@ -1,49 +1,7 @@
 import { Request, Response } from "express";
 import { CategoriaService } from "../services/categoria.service";
 import { categoriaSchema } from "../dtos/categoria.dto";
-
-/**
- * @openapi
- * components:
- *  schemas:
- *    categoriaDTO:
- *     type: object 
- *     properties:
- *       id:
- *         type: integer
- *       nome:
- *         type: string
- *       
- */
-
-/**
- * @openapi
- * /cateroria:
- *  post:
- *    summary: cadastro de categoria
- *    requestBody:
- *     content:
- *       application/json:
- *         schema:
- *           $ref: '#components/schemas/categoriaDTO'
- *    responses:
- *     201:
- *      description: 
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#components/schemas/categoriaDTO'
- *     400:
- *      description: 
- *      content:
- *       application/json:
- *         schema:
- *           type: object
- *           properties:
- *             message:
- *              type: string
- *     
- */
+import { ValidationError } from "../validations/validation.error";
 
 const service = new CategoriaService();
 export class CategoriaController{
@@ -51,9 +9,13 @@ export class CategoriaController{
         try {
             const categoria = categoriaSchema.parse(req.body);
             const result = await service.create(categoria);
-            res.json(result);
+            res.status(201).json(result);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            if(error.name === "ZodError"|| error instanceof ValidationError){
+             return res.status(400).json({message:error.message});
+            }
+            return res.status(500).json({message:"Internal server error"}); 
         }
     }
     static async list(req:Request,res:Response){
@@ -61,7 +23,8 @@ export class CategoriaController{
             const list = await service.list();
             res.json(list);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            res.status(500).json({message:"Internal server error"});
         }
     }
     static async getByName(req:Request,res:Response){
@@ -70,7 +33,8 @@ export class CategoriaController{
             const result = await service.getByName(nome);
             return res.json(result);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            res.status(500).json({message:"Internal server error"});
         }
     }
 }

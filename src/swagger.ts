@@ -1,7 +1,6 @@
 import { Express } from "express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import { url } from "zod";
 
 export function setupSwagger(app:Express){
     const options: swaggerJSDoc.Options = {
@@ -12,7 +11,7 @@ export function setupSwagger(app:Express){
                 version:"1.0.0",
                 description:"Documentação da API de finanças pessoais"
             },
-            servers:[{url:"http://localhost:3000"}],
+            servers:[{url:"http://localhost:5000"}],
             components:{
                 securitySchemes:{
                     bearerAuth:{
@@ -26,5 +25,5 @@ export function setupSwagger(app:Express){
         apis:["./src/routes/*.ts","./src/controllers/*.ts"]
     }
     const swaggerSpec = swaggerJSDoc(options);
-    app.use("/docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec));
+    app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec));
 }

@@ -12,4 +12,7 @@ export class CategoriaRepository{
     async getByName(nome:string){
         return prisma.categoria.findFirst({where:{nome}})
     }
+    async getById(id:number){
+        return prisma.categoria.findUnique({where:{id}})
+    }
 }

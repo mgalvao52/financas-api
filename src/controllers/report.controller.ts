@@ -10,7 +10,8 @@ export class ReportController{
             const result = await service.amountByConta(usuarioId);
             res.json(result);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            res.status(500).json({message:"Internal server error"});
         }
     }
      static async expensesByCategory(req:Request,res:Response){
@@ -20,7 +21,8 @@ export class ReportController{
             const result = await service.expensesByCategory(usuarioId,Number(mes),Number(ano));
             res.json(result);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            res.status(500).json({message:"Internal server error"});
         }
     }
      static async totalAmount(req:Request,res:Response){
@@ -29,7 +31,8 @@ export class ReportController{
             const result = await service.totalAmount(usuarioId);
             res.json(result);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            res.status(500).json({message:"Internal server error"});
         }
     }
      static async resumoMensal(req:Request,res:Response){
@@ -39,7 +42,8 @@ export class ReportController{
             const result = await service.resumoTotal(usuarioId,Number(mes),Number(ano));
             res.json(result);
         } catch (error:any) {
-            res.status(400).json({message:error.message});
+            console.log(error);
+            res.status(500).json({message:"Internal server error"});
         }
     }
 }
