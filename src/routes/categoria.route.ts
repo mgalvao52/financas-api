@@ -18,7 +18,7 @@ import { CategoriaController } from "../controllers/categoria.controller";
 
 /**
  * @openapi
- * /api/cateroria:
+ * /api/categoria:
  *  post:
  *    summary: cadastro de categoria
  *    requestBody:

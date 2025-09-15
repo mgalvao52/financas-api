@@ -22,7 +22,7 @@ export class TransacaoController{
         }
     }
 
-    static async List(req:Request,res:Response){
+    static async list(req:Request,res:Response){
         try {
             const usuarioId = (req as any).userId;
             const transacoes = await service.getListByUser(usuarioId);

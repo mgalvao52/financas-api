@@ -20,7 +20,12 @@ export function setupSwagger(app:Express){
                         bearerFormat:"JWT"
                     }
                 }
-            }
+            },
+            security:[
+                {
+                    bearerAuth: []
+                }
+            ]
         },
         apis:["./src/routes/*.ts","./src/controllers/*.ts"]
     }

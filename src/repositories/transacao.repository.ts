@@ -39,7 +39,7 @@ export class TransacaoRepository{
     }
     async expensesByCategory(usuarioId:number,mes:number,ano:number){
         const inicio = new Date(ano,mes-1,1);
-        const fim = new Date(ano,mes,0,23,59,59);
+        const fim = new Date(ano,mes,0,23,59,59);       
 
         const transacoes = await prisma.transacao.groupBy({
             by:["categoriaId"],

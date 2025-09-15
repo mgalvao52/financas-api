@@ -10,9 +10,18 @@ export class UsuarioService {
   private repo = new UsuarioRepository();
 
   async create(usuario: UsuarioDTO) {
-    const hash = await bcrypt.hash(usuario.senha, 10);
-    usuario.senha = hash;
-    return this.repo.create(usuario);
+    try {
+        const usuarioTemp = await this.repo.findByEmail(usuario.email);
+        if(usuarioTemp != null){
+          throw new ValidationError("usuario ja existe");
+        }
+        const hash = await bcrypt.hash(usuario.senha, 10);
+        usuario.senha = hash;
+        return this.repo.create(usuario);
+      
+    } catch (error) {
+      throw error;
+    }
   }
   async login(email: string, senha: string) {
     const usuario = await this.repo.findByEmail(email);
