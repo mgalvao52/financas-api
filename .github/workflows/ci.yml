@@ -21,7 +21,10 @@ jobs:
        - name: Instalar dependencias
          run: npm install
 
-       - name: Buldar Projeto
+       - name: Generate Prisma Client
+         run: npx prisma generate
+
+       - name: Buildar Projeto
          run: npm run build
 
        - name: Rodar migrações no Postgres do Render
