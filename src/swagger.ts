@@ -11,7 +11,7 @@ export function setupSwagger(app:Express){
                 version:"1.0.0",
                 description:"Documentação da API de finanças pessoais"
             },
-            servers:[{url:"http://localhost:5000"}],
+            // servers:[{url:"http://localhost:5000"}],
             components:{
                 securitySchemes:{
                     bearerAuth:{
@@ -29,6 +29,8 @@ export function setupSwagger(app:Express){
         },
         apis:["./src/routes/*.ts","./src/controllers/*.ts"]
     }
+
+    // options.servers = [{url:`${process.env.URL_API}`}];
     const swaggerSpec = swaggerJSDoc(options);
     app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec));
 }
