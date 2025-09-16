@@ -6,6 +6,7 @@ import { contaRouter } from "./conta.route";
 import { reportRouter } from "./report.route";
 import { transacaoRouter } from "./transacao.route";
 import { usuarioRouter } from "./usuario.route";
+import { bancoRouter } from "./banco.route";
 export const router = express.Router();
 
 export function setupRoutes(app:express.Express){
@@ -17,4 +18,5 @@ export function setupRoutes(app:express.Express){
     router.use("/relatorio",authMiddleware,reportRouter);
     router.use("/transacao",authMiddleware,transacaoRouter);
     router.use("/usuario",usuarioRouter);
+    router.use("/banco",authMiddleware,bancoRouter);
 }

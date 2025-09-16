@@ -17,7 +17,7 @@ export class UsuarioService {
         }
         const hash = await bcrypt.hash(usuario.senha, 10);
         usuario.senha = hash;
-        return this.repo.create(usuario);
+        return this.repo.create({nome:usuario.nome,senha:usuario.senha,email:usuario.email,ativo:true,email_confirmado:false});
       
     } catch (error) {
       throw error;

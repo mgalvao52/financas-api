@@ -6,7 +6,8 @@ export const transacaoSchema = z.object({
     tipo: z.enum(['entrada','saida']),
     usuarioId: z.number().int(),
     contaId:number().int(),
-    categoriaId:number().int()
+    categoriaId:number().int(),
+    data:z.date().optional()
 });
 
 export type TransacaoDTO = z.infer<typeof transacaoSchema>;

@@ -11,9 +11,9 @@ export class ContaService{
         try {
             const usuario = await this.repoUsuario.findById(conta.usuarioId);
             if(!usuario) throw new ValidationError("Usuário não encontrado");
-            const contaExistente = await this.repoConta.getByUserId(conta.usuarioId);
+            const contaExistente = await this.repoConta.getExists(conta.usuarioId,conta.bancoId);
             if(contaExistente.length > 0) throw new ValidationError("Usuário já possui uma conta");
-            return await this.repo.create(conta);
+            const result = await this.repo.create(conta);            
             
         } catch (error) {
             throw error;

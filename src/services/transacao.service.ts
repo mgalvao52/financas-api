@@ -1,5 +1,4 @@
 
-import { th } from "zod/v4/locales/index.cjs";
 import { TransacaoDTO } from "../dtos/transacao.dtos";
 import { CategoriaRepository } from "../repositories/categoria.repository";
 import { ContaRepository } from "../repositories/conta.repository";
@@ -22,7 +21,15 @@ export class TransacaoService{
             if(conta.length <= 0) throw new ValidationError("Conta não encontrada");
             const categoria = await this.repoCategoria.getById(data.categoriaId);
             if(!categoria) throw new ValidationError("Categoria não encontrada");
-            return await this.repo.create(data);
+            if(!data.data){
+                data.data = new Date();
+            }
+            return await this.repo.create({categoriaId:data.categoriaId,contaId:data.contaId,data:data.data,
+                descricao:data.descricao,
+                tipo:data.tipo,
+                valor:data.valor,
+                usuarioId:data.usuarioId
+            });
             
         } catch (error) {
             throw error;

@@ -9,4 +9,7 @@ export class ContaRepository{
     async getByUserId(usuarioId:number){
         return prisma.conta.findMany({where:{usuarioId}});
     }
+    async getExists(usuarioId:number,bancoId:number){
+        return prisma.conta.findMany({where:{bancoId,usuarioId}});
+    }
 }

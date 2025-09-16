@@ -3,7 +3,7 @@ import { PrismaClient,Transacao } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export class TransacaoRepository{
-    async create(data:Omit<Transacao,"id"|"data">){
+    async create(data:Omit<Transacao,"id">){
         return prisma.transacao.create({data});
     }
 
@@ -24,7 +24,7 @@ export class TransacaoRepository{
             },c.saldo);
 
             return {
-                conta:c.nome,
+                conta:c.bancoId,
                 saldo
             }
         })
