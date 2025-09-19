@@ -12,55 +12,55 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-enum Tipo{
+
+enum Tipo {
   entrada
   saida
 }
 
-model Usuario{
-  id Int @id @default(autoincrement())
-  nome String
-  email String @unique
-  senha String
-  email_confirmado Boolean @default(false)
-  ativo Boolean @default(true)
-  transacoes Transacao[]
-  contas Conta[]
+model Usuario {
+  id               Int         @id @default(autoincrement())
+  nome             String
+  email            String      @unique
+  senha            String
+  email_confirmado Boolean     @default(false)
+  ativo            Boolean     @default(true)
+  transacoes       Transacao[]
+  contas           Conta[]
 }
 
-model Transacao{
-  id Int @id @default(autoincrement())
-  descricao String
-  valor Float
-  tipo Tipo
-  data DateTime @default(now())
-  usuarioId Int
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
-  contaId Int
-  Conta Conta @relation(fields: [contaId],references: [id])
+model Transacao {
+  id          Int       @id @default(autoincrement())
+  descricao   String
+  valor       Float
+  tipo        Tipo
+  data        DateTime  @default(now())
+  usuarioId   Int
+  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+  contaId     Int
+  Conta       Conta     @relation(fields: [contaId], references: [id])
   categoriaId Int
-  categoria Categoria @relation(fields: [categoriaId],references: [id])
-
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
 }
-model Conta{
-  id Int @id @default(autoincrement())
-  saldo Float @default(0)
-  bancoId Int
-  banco Banco @relation(fields: [bancoId],references: [id])
-  usuarioId Int
-  usuario Usuario @relation(fields: [usuarioId],references: [id])
+
+model Conta {
+  id         Int         @id @default(autoincrement())
+  saldo      Float       @default(0)
+  bancoId    Int
+  banco      Banco       @relation(fields: [bancoId], references: [id])
+  usuarioId  Int
+  usuario    Usuario     @relation(fields: [usuarioId], references: [id])
   transacoes Transacao[]
 }
 
-model Banco{
-  id Int @id @default(autoincrement())
-  nome String
+model Banco {
+  id     Int     @id @default(autoincrement())
+  nome   String
   contas Conta[]
 }
 
-model Categoria{
-  id Int @id @default(autoincrement())
-  nome String
+model Categoria {
+  id         Int         @id @default(autoincrement())
+  nome       String
   transacoes Transacao[]
 }
-
