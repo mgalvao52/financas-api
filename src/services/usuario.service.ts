@@ -28,9 +28,9 @@ export class UsuarioService {
     if (usuario == null) {
       throw new ValidationError("credenciais invalidas");
     }
-    if(!usuario.email_confirmado){
-      throw new ValidationError("email não ativado!")
-    }
+    // if(!usuario.email_confirmado){
+    //   throw new ValidationError("email não ativado!")
+    // }
     const valido = await bcrypt.compare(senha, usuario.senha);
     if (!valido) {
       throw new ValidationError("credenciais invalidas");
