@@ -23,8 +23,8 @@ export class UsuarioController {
     static async login(req: Request, res: Response) {
         try {
             const {email,senha} = req.body;
-            const token = await service.login(email,senha);
-            res.json(token);
+            const {token,nome} = await service.login(email,senha);
+            res.json({token,nome});
         } catch (error: any) {
             console.log(error);
             if(error instanceof ValidationError){
