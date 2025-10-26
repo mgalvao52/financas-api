@@ -21,7 +21,8 @@ export class BancoController{
     }
     static async list(req:Request,res:Response){
         try {
-            return await bancoService.list();
+            const list = await bancoService.list();
+            return res.status(200).json(list);
         } catch (error:any) {
             return res.status(500).json({message:"Internal Server Error"});
         }
