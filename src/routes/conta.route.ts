@@ -53,14 +53,9 @@ route.post("/",ContaController.create);
 
 /**
  * @openapi
- * /api/conta/{usuarioId}:
+ * /api/conta:
  *  get:
- *   summary: pesquisa de contas por usuario
- *   parameters:
- *     - in: path
- *       name: usuarioId
- *       type: integer
- *       required: true
+ *   summary: pesquisa de contas por usuario   
  *   responses:
  *     200:
  *      description: lista de contas do usuario  

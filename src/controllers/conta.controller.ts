@@ -10,7 +10,7 @@ export class ContaController{
             const conta = contaSchema.parse(req.body);
             const usuarioid = (req as any).userId;            
             const result = await service.create(usuarioid,conta);
-            res.status(201).json(result);
+           return res.status(201).json(result);
         } catch (error:any) {
             console.log(error);
             if(error.name === "ZodError"|| error instanceof ValidationError){
@@ -23,12 +23,12 @@ export class ContaController{
         try {
             const usuarioid = (req as any).userId;
             const result = await service.getByUserId(usuarioid);
-            res.json(result?.forEach(item=>{
+           return res.json(result?.map(item=>{
                 return {id:item.id,saldo:item.saldo,banco:item.banco.nome,bancoId:item.bancoId}
             }));
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+           return res.status(500).json({message:"Internal server error"});
         }
     }
 }

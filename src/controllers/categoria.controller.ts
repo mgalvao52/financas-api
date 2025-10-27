@@ -9,7 +9,7 @@ export class CategoriaController{
         try {
             const categoria = categoriaSchema.parse(req.body);
             const result = await service.create(categoria);
-            res.status(201).json(result);
+            return res.status(201).json(result);
         } catch (error:any) {
             console.log(error);
             if(error.name === "ZodError"|| error instanceof ValidationError){
@@ -21,10 +21,10 @@ export class CategoriaController{
     static async list(req:Request,res:Response){
         try {
             const list = await service.list();
-            res.json(list);
+           return res.json(list);
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+           return res.status(500).json({message:"Internal server error"});
         }
     }
     static async getByName(req:Request,res:Response){
@@ -34,7 +34,7 @@ export class CategoriaController{
             return res.json(result);
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+            return res.status(500).json({message:"Internal server error"});
         }
     }
 }

@@ -11,26 +11,26 @@ export class UsuarioController {
         try {
             const usuario = usuarioSchema.parse(req.body);
             const result = await service.create(usuario);
-            res.status(201).json(usuario);
+           return res.status(201).json(usuario);
         } catch (error: any) {
             console.log(error);
             if(error instanceof ValidationError || error instanceof ZodError){
                 return res.status(400).json({ message: error.message });
             }
-            res.status(500).json({ message: "Internal server error" });
+           return res.status(500).json({ message: "Internal server error" });
         }
     }
     static async login(req: Request, res: Response) {
         try {
             const {email,senha} = req.body;
             const {token,nome} = await service.login(email,senha);
-            res.json({token,nome});
+           return res.json({token,nome});
         } catch (error: any) {
             console.log(error);
             if(error instanceof ValidationError){
                 return res.status(400).json({ message: error.message });
             }
-            res.status(500).json({ message: "Internal server error" });
+           return res.status(500).json({ message: "Internal server error" });
         }
     }
 }

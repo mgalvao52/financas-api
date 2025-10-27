@@ -8,10 +8,10 @@ export class ReportController{
         try {
             const usuarioId = (req as any).userId;
             const result = await service.amountByConta(usuarioId);
-            res.json(result);
+            return res.json(result);
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+           return res.status(500).json({message:"Internal server error"});
         }
     }
      static async expensesByCategory(req:Request,res:Response){
@@ -19,20 +19,20 @@ export class ReportController{
             const usuarioId = (req as any).userId;
             const {mes,ano} = req.params;
             const result = await service.expensesByCategory(usuarioId,Number(mes),Number(ano));
-            res.json(result);
+           return res.json(result);
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+           return res.status(500).json({message:"Internal server error"});
         }
     }
      static async totalAmount(req:Request,res:Response){
         try {
             const usuarioId = (req as any).userId;
             const result = await service.totalAmount(usuarioId);
-            res.json(result);
+           return res.json(result);
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+           return res.status(500).json({message:"Internal server error"});
         }
     }
      static async resumoMensal(req:Request,res:Response){
@@ -40,10 +40,10 @@ export class ReportController{
             const usuarioId = (req as any).userId;
             const {mes,ano} = req.params;
             const result = await service.resumoTotal(usuarioId,Number(mes),Number(ano));
-            res.json(result);
+           return res.json(result);
         } catch (error:any) {
             console.log(error);
-            res.status(500).json({message:"Internal server error"});
+           return res.status(500).json({message:"Internal server error"});
         }
     }
 }
