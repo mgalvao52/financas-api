@@ -9,12 +9,14 @@ const route = Router();
  *   contaDTO:
  *    type: object
  *    properties:
- *      nome: 
- *       type: string
+ *      id: 
+ *       type: integer
  *      saldo:
  *       type: number
  *      bancoId:
- *       type: integer   
+ *       type: integer
+ *      banco:
+ *       type: string   
  */
 
 /**

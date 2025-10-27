@@ -23,7 +23,9 @@ export class ContaController{
         try {
             const usuarioid = (req as any).userId;
             const result = await service.getByUserId(usuarioid);
-            res.json(result);
+            res.json(result?.forEach(item=>{
+                return {id:item.id,saldo:item.saldo,banco:item.banco.nome,bancoId:item.bancoId}
+            }));
         } catch (error:any) {
             console.log(error);
             res.status(500).json({message:"Internal server error"});
