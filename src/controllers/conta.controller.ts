@@ -8,7 +8,8 @@ export class ContaController{
     static async create(req:Request,res:Response){
         try {
             const conta = contaSchema.parse(req.body);
-            const result = await service.create(conta);
+            const usuarioid = (req as any).userId;            
+            const result = await service.create(usuarioid,conta);
             res.status(201).json(result);
         } catch (error:any) {
             console.log(error);

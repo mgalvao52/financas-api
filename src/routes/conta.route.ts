@@ -13,7 +13,7 @@ const route = Router();
  *       type: string
  *      saldo:
  *       type: number
- *      usuarioId:
+ *      bancoId:
  *       type: integer   
  */
 
@@ -69,7 +69,7 @@ route.post("/",ContaController.create);
  *          items:
  *            $ref: '#components/schemas/contaDTO'
  */
-route.get("/:usuarioId",ContaController.getByUserId);
+route.get("/",ContaController.getByUserId);
 
 
 export {route as contaRouter};

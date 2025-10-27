@@ -7,13 +7,14 @@ export class ContaService{
     private repo = new ContaRepository();
     private repoUsuario = new UsuarioRepository();
     private repoConta = new ContaRepository();
-    async create(conta:ContaDTO){
+    async create(usuarioId:number,conta:ContaDTO){
         try {
-            const usuario = await this.repoUsuario.findById(conta.usuarioId);
+            const usuario = await this.repoUsuario.findById(usuarioId);
             if(!usuario) throw new ValidationError("Usuário não encontrado");
-            const contaExistente = await this.repoConta.getExists(conta.usuarioId,conta.bancoId);
+            const contaExistente = await this.repoConta.getExists(usuarioId,conta.bancoId);
             if(contaExistente.length > 0) throw new ValidationError("Usuário já possui uma conta");
-            const result = await this.repo.create(conta);            
+            
+            const result = await this.repo.create({usuarioId:usuarioId,saldo:conta.saldo,bancoId:conta.bancoId});            
             
         } catch (error) {
             throw error;
