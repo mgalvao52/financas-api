@@ -15,8 +15,6 @@ const route = Router();
  *     tipo:
  *      type: enum
  *      enum: [entrada, saida]
- *     usuarioId:
- *      type: integer
  *     contaId:
  *      type: integer
  *     categoriaId:

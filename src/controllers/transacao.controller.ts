@@ -10,8 +10,7 @@ export class TransacaoController{
         try {
             const transacao = transacaoSchema.parse(req.body);
             const usuarioId = (req as any).userId;
-            transacao.usuarioId = usuarioId;
-            const result = await service.create(transacao);
+            const result = await service.create(transacao,usuarioId);
             return res.status(201).json(result);
         } catch (error:any) {
             console.log(error);

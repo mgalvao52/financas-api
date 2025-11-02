@@ -12,12 +12,12 @@ export class TransacaoService{
     private repoConta = new ContaRepository();
     private repoCategoria = new CategoriaRepository();
     private repoUsuario = new UsuarioRepository();
-    async create(data:TransacaoDTO){
+    async create(data:TransacaoDTO,usuarioId:number){
         try {
 
-            const usuario = await this.repoUsuario.findById(data.usuarioId);
+            const usuario = await this.repoUsuario.findById(usuarioId);
             if(usuario == null) throw new ValidationError("Usuário não encontrado");
-            const conta  = await this.repoConta.getByUserId(data.usuarioId);
+            const conta  = await this.repoConta.getByUserId(usuarioId);
             if(conta.length <= 0) throw new ValidationError("Conta não encontrada");
             const categoria = await this.repoCategoria.getById(data.categoriaId);
             if(!categoria) throw new ValidationError("Categoria não encontrada");
@@ -28,7 +28,7 @@ export class TransacaoService{
                 descricao:data.descricao,
                 tipo:data.tipo,
                 valor:data.valor,
-                usuarioId:data.usuarioId
+                usuarioId:usuarioId
             });
             
         } catch (error) {
