@@ -8,7 +8,14 @@ export class TransacaoRepository{
     }
 
     async findByUserId(usuarioId:number){
-        return prisma.transacao.findMany({where:{usuarioId}});
+        return prisma.transacao.findMany({where:{usuarioId},
+        include:{
+            categoria:{
+                select:{
+                    nome:true
+                }
+            }
+        }});
     }
     async amountByConta(usuarioId:number){
         const contas = await prisma.conta.findMany({
